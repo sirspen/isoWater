@@ -21,9 +21,6 @@ jobs:
       matrix:
         config:
           - {os: macOS-latest, r: 'release'}
-          - {os: ubuntu-latest, r: 'release'}
-          - {os: ubuntu-latest, r: 'devel'}
-          - {os: ubuntu-latest, r: '4.0'}
     steps:
       - uses: actions/checkout@v4
 
@@ -48,8 +45,8 @@ jobs:
       - name: mac setup
         if: runner.os == 'macOS'
         run: |
-          brew install jags
-          echo JAGS_PREFIX=$(brew --cellar jags)/$(brew list --versions jags | tr ' ' '\n' | tail -1) >> $GITHUB_ENV
+          wget https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Mac%20OS%20X/JAGS-4.3.2.pkg
+          sudo installer -pkg JAGS-4.3.2.pkg -target /
 
       - name: Install dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
